@@ -3,6 +3,8 @@ import { Observable, Subject } from 'rxjs';
 import { filter, finalize } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { LoadingService } from './loading.service';
+import { App } from '../models/app.interface';
+import { AppQuery } from '../models/app-query.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -20,9 +22,14 @@ export class AppService {
     return this._apps$.asObservable().pipe(filter(apps => !!apps));
   }
 
-  public fetchApps(): void {
+  public fetchApps(params: AppQuery = {}): void {
     this.loadingService.isLoading = true;
-    this.http.get<App[]>(this.API).pipe(finalize(() => this.loadingService.isLoading = false)).subscribe(apps => {
+    this.http.get<App[]>(this.API, { params: {
+      freeText: params.freeText || '',
+      birthYear: params.birthYear?.toString() || '',
+      preferredCategories: params.preferredCategories || '',
+      minAppRating: params.minAppRating?.toString() || '',
+    }}).pipe(finalize(() => this.loadingService.isLoading = false)).subscribe(apps => {
       this._apps$.next(apps);
     });
   }
