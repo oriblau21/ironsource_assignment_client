@@ -14,6 +14,9 @@ import { HomeComponent } from './components/home/home.component';
 import { MaterialModule } from './material.module';
 import { AppComponent } from './components/app/app.component';
 import { LoadingService } from './services/loading.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -28,7 +31,10 @@ import { LoadingService } from './services/loading.service';
     HttpClientModule,
     BrowserModule,
     AppRoutingModule,
-    MaterialModule
+    MaterialModule,
+    BrowserAnimationsModule,
+    FlexLayoutModule,
+    ReactiveFormsModule
   ],
   providers: [
     CategoryService,

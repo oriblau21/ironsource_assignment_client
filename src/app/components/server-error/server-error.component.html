@@ -1,3 +1,6 @@
-<p>
-  server-error works!
-</p>
+<div fxLayout="column" fxLayoutAlign="center center" class="server-error">
+  <img src="/assets/images/server-error.gif" class="gif">
+  <h2>We're sorry, there seem to be an error</h2>
+  <h4>We'll do our best so it won't happen again</h4>
+  <a [routerLink]="['/apps']"><button mat-stroked-button color="primary">Try again</button></a>
+</div>
