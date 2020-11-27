@@ -1,0 +1,2 @@
+<router-outlet *ngIf="(loading$ | async) else loader"></router-outlet>
+<mat-spinner #loader></mat-spinner>

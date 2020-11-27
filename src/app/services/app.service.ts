@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { filter } from 'rxjs/operators';
+import { filter, finalize } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
+import { LoadingService } from './loading.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class AppService {
   private _apps$: Subject<App[]>;
   private readonly API = '/api/app';
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private loadingService: LoadingService) {
     this._apps$ = new Subject<App[]>();
     this.fetchApps();
   }
@@ -20,7 +21,8 @@ export class AppService {
   }
 
   public fetchApps(): void {
-    this.http.get<App[]>(this.API).subscribe(apps => {
+    this.loadingService.isLoading = true;
+    this.http.get<App[]>(this.API).pipe(finalize(() => this.loadingService.isLoading = false)).subscribe(apps => {
       this._apps$.next(apps);
     });
   }
