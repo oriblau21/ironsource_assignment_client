@@ -1,0 +1,17 @@
+.table-container {
+    max-width: 100%;
+    overflow: auto;
+
+    table {
+        width: 100%;
+
+        .mat-cell, .mat-header-cell {
+            padding-left: 15px;
+        }
+
+        .app-icon {
+            height: 20px;
+            width: 20px;
+        }
+    }
+}

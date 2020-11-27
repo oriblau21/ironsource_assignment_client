@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Observable } from 'rxjs';
 import { AppQuery } from 'src/app/models/app-query.interface';
 import { AppService } from 'src/app/services/app.service';
+import { CategoryService } from 'src/app/services/category.service';
 
 @Component({
   selector: 'app-search-bar',
@@ -10,12 +12,17 @@ import { AppService } from 'src/app/services/app.service';
 })
 export class SearchBarComponent {
   public appQueryForm: FormGroup;
+  public categories$: Observable<string[]>;
 
-  constructor(private appService: AppService) {
+  constructor(private appService: AppService,
+              private categoryService: CategoryService) {
     this.appQueryForm = new FormGroup({
+      freeText: new FormControl(),
       birthYear: new FormControl(),
+      preferredCategories: new FormControl(),
       minAppRating: new FormControl()
     });
+    this.categories$ = this.categoryService.categories$;
   }
 
   submitSearch(): void {

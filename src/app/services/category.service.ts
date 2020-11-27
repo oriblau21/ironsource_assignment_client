@@ -16,7 +16,7 @@ export class CategoryService {
     this.fetchCategories();
   }
 
-  public get apps$(): Observable<string[]> {
+  public get categories$(): Observable<string[]> {
     return this._categories$.asObservable().pipe(filter(categories => !!categories));
   }
 

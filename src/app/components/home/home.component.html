@@ -1,4 +1,7 @@
-<div fxLayout="column" fxLayoutAlign="space-around center">    
-    <app-search-bar></app-search-bar>
-    <app-apps-table></app-apps-table>
+<div fxLayout="column" fxLayoutAlign="space-around center" class="home">    
+    <app-search-bar class="home-item"></app-search-bar>
+    <app-apps-table class="home-item"></app-apps-table>
 </div>
+<ng-template #loader *ngIf="(loading$ | async)">
+    <mat-spinner></mat-spinner>
+</ng-template>

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { filter, finalize } from 'rxjs/operators';
+import { filter, finalize, take, tap } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { LoadingService } from './loading.service';
 import { App } from '../models/app.interface';
@@ -15,7 +15,6 @@ export class AppService {
 
   constructor(private http: HttpClient, private loadingService: LoadingService) {
     this._apps$ = new Subject<App[]>();
-    this.fetchApps();
   }
 
   public get apps$(): Observable<App[]> {
@@ -29,7 +28,7 @@ export class AppService {
       birthYear: params.birthYear?.toString() || '',
       preferredCategories: params.preferredCategories || '',
       minAppRating: params.minAppRating?.toString() || '',
-    }}).pipe(finalize(() => this.loadingService.isLoading = false)).subscribe(apps => {
+    }}).pipe(tap(() => this.loadingService.isLoading = false)).subscribe(apps => {
       this._apps$.next(apps);
     });
   }

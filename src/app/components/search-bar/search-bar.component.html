@@ -1,11 +1,17 @@
-<form class="search-apps" fxLayout="row" fxLayoutAlign="space-around center" [formGroup]="appQueryForm">
-  <mat-form-field>
+<form class="search-apps" *ngIf="appQueryForm" fxLayout="row" fxLayoutAlign="space-around center" [formGroup]="appQueryForm">
+  <mat-form-field class="number">
     <mat-label>Birth</mat-label>
-    <input matInput type="number" max="2020" min="1920" FormControlName="birthYear">
+    <input matInput type="number" max="2020" min="1920" formControlName="birthYear">
   </mat-form-field>
-  <mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Preferred Categories</mat-label>
+    <mat-select formControlName="preferredCategories" multiple>
+      <mat-option *ngFor="let category of (categories$ | async)" [value]="category">{{category}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field class="number">
     <mat-label>Rating</mat-label>
-    <input matInput type="number" FormControlName="minAppRating">
+    <input matInput type="number" formControlName="minAppRating">
   </mat-form-field>
   <button mat-button color="primary" (click)="submitSearch()">Submit</button>
 </form>
